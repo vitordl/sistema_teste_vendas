@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 
 // Rota para o login 
 Route::get('/', 'VendasController@index')->name('login');
+Route::post('login_submit', 'VendasController@login_submit')->name('login_submit');
 
-Route::post('vendas', 'VendasController@sistema')->name('sistema');
+Route::get('sistema', 'VendasController@sistema')->name('sistema');
 
+Route::get('sair', 'VendasController@deslogar')->name('deslogar');
+
+Route::get('sobre', 'VendasController@sobre')->name('sobre');
 

@@ -15,23 +15,29 @@ class VendasController extends Controller
         //index é pra ser a página de login
         //e tambem carregar o metodo que alimenta o banco de dados inicial
 
-        function preencherBanco(){
 
+    
+        if(session()->has('logado')){
+            return redirect()->route('sistema');
+        }
+       
+    
+        function preencherBanco(){
             $usuarios = [
                 ['usuario' => 'vitor', 'senha' => 'vitor#'],
                 ['usuario' => 'astolfo', 'senha' => 'astolfo#']
             ];
-
+    
             $produtos = [
                 ['produto' => 'Notebook', 'valor' => 3200.50],
                 ['produto' => 'TV', 'valor' => 1985.89],
                 ['produto' => 'Celular', 'valor' => 1240.00]
             ];
-
+    
             $usuariosdb = Usuarios::get();
-
+    
             $produtosdb = Produtos::get();
-
+    
             if($usuariosdb->count() == 0 && $produtosdb->count() == 0){
     
                 foreach($usuarios as $u){
@@ -40,7 +46,7 @@ class VendasController extends Controller
                     $userdb->senha = $u['senha'];
                     $userdb->save();
                 }
-
+    
                 foreach($produtos as $p){
                     $prodb = new Produtos();
                     $prodb->produto = $p['produto'];
@@ -55,32 +61,64 @@ class VendasController extends Controller
 
         return view('login');
 
+    }
 
-        // $request->session()->has('logado');
-   
+    public function login_submit(Request $request){
+
+        $usuario_campo = $request->input('usuario');
+        $senha_campo = $request->input('senha');
+        
+        $usdb = Usuarios::where('usuario', $usuario_campo)->first();
+
+        $request->validate([
+            'usuario' => 'required|min:3',
+            'senha' => 'required|min:3',
+        ]);
+        
+       
+        if(!$usdb){
+            session()->flash('aviso', 'Usuário ou senha incorretos');
+            return redirect()->route('login');
+        }
+
+        if($usdb->senha == $senha_campo){
+            session()->put('logado', 'sim');
+            return redirect()->route('sistema');
+        }else{
+            session()->flash('aviso', 'Senha incorreta');
+            return redirect()->route('login');
+
+        }
+
+    
     }
 
 
-    public function sistema(Request $request){
-        /* 
-        provavelmente aqui farei um foreach pra ver se existe o usuario e ele pode estar logado e depois crio uma session logado para o usuario e uso ela em todo os metods, tentar ne.. 
-        */
-        $usuario_campo = $request->input('usuario');
-    
-        $usuariosdb = Usuarios::get();
+    public function sistema(){
 
-        foreach($usuariosdb as $u){
-            if($usuario_campo == $u->usuario){
-                return view('sistema');
-            }else{
-                return view('login');
-            }
+        if(!session()->has('logado')){
+            return redirect()->route('login');
         }
 
-        
-        // print_r($usuariosdb);
-        // echo "logado";
-        
+        return view('sistema');
+
+    }
+
+
+    public function sobre(){
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+        return view('sobre');
+    }
+
+    public function deslogar(){
+        if(session()->has('logado')){
+            session()->forget('logado');
+            return redirect()->route('login');
+        }
+        return redirect()->route('login');
     }
 
     
