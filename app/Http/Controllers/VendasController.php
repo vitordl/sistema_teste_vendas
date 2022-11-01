@@ -14,54 +14,52 @@ class VendasController extends Controller
     {
         //index é pra ser a página de login
         //e tambem carregar o metodo que alimenta o banco de dados inicial
-
-
     
         if(session()->has('logado')){
             return redirect()->route('sistema');
         }
        
-    
-        function preencherBanco(){
-            $usuarios = [
-                ['usuario' => 'vitor', 'senha' => 'vitor#'],
-                ['usuario' => 'astolfo', 'senha' => 'astolfo#']
-            ];
-    
-            $produtos = [
-                ['produto' => 'Notebook', 'valor' => 3200.50],
-                ['produto' => 'TV', 'valor' => 1985.89],
-                ['produto' => 'Celular', 'valor' => 1240.00]
-            ];
-    
-            $usuariosdb = Usuarios::get();
-    
-            $produtosdb = Produtos::get();
-    
-            if($usuariosdb->count() == 0 && $produtosdb->count() == 0){
-    
-                foreach($usuarios as $u){
-                    $userdb = new Usuarios();
-                    $userdb->usuario = $u['usuario'];
-                    $userdb->senha = $u['senha'];
-                    $userdb->save();
-                }
-    
-                foreach($produtos as $p){
-                    $prodb = new Produtos();
-                    $prodb->produto = $p['produto'];
-                    $prodb->valor = $p['valor'];
-                    $prodb->save();
-                }     
-            }
-            
-        }
-
-        preencherBanco();
+        $this->preencherBanco();
 
         return view('login');
 
     }
+
+    private function preencherBanco(){
+        $usuarios = [
+            ['usuario' => 'vitor', 'senha' => 'vitor#'],
+            ['usuario' => 'astolfo', 'senha' => 'astolfo#']
+        ];
+
+        $produtos = [
+            ['produto' => 'Notebook', 'valor' => 3200.50],
+            ['produto' => 'TV', 'valor' => 1985.89],
+            ['produto' => 'Celular', 'valor' => 1240.00]
+        ];
+
+        $usuariosdb = Usuarios::get();
+
+        $produtosdb = Produtos::get();
+
+        if($usuariosdb->count() == 0 && $produtosdb->count() == 0){
+
+            foreach($usuarios as $u){
+                $userdb = new Usuarios();
+                $userdb->usuario = $u['usuario'];
+                $userdb->senha = $u['senha'];
+                $userdb->save();
+            }
+
+            foreach($produtos as $p){
+                $prodb = new Produtos();
+                $prodb->produto = $p['produto'];
+                $prodb->valor = $p['valor'];
+                $prodb->save();
+            }     
+        }
+        
+    }
+
 
     public function login_submit(Request $request){
 
@@ -81,14 +79,13 @@ class VendasController extends Controller
             return redirect()->route('login');
         }
 
-        if($usdb->senha == $senha_campo){
-            session()->put('logado', 'sim');
-            return redirect()->route('sistema');
-        }else{
+        if($usdb->senha != $senha_campo){
             session()->flash('aviso', 'Senha incorreta');
             return redirect()->route('login');
-
         }
+
+        session()->put('logado', 'sim');
+        return redirect()->route('sistema');
 
     
     }
@@ -99,19 +96,24 @@ class VendasController extends Controller
         if(!session()->has('logado')){
             return redirect()->route('login');
         }
-
+    
         return view('sistema');
 
     }
 
 
     public function sobre(){
+        
         if(!session()->has('logado')){
             return redirect()->route('login');
         }
 
         return view('sobre');
     }
+
+    
+    
+
 
     public function deslogar(){
         if(session()->has('logado')){
