@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Produtos;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+// use Barryvdh\DomPDF\Facade\Pdf;
 
+  
 class VendasController extends Controller
 {
 
@@ -126,10 +128,13 @@ class VendasController extends Controller
     
 
    
-    public function create()
-    {
-        //
-    }
+    // public function gerarPDf()
+    // {
+    //     $data = 'oi tudo bom';
+    //     $pdf = Pdf::loadView('pdf.invoice', $data);
+    //     return $pdf->download('invoice.pdf');
+    
+    // }
 
    
     public function store(Request $request)

@@ -27,3 +27,5 @@ Route::get('sair', 'VendasController@deslogar')->name('deslogar');
 
 Route::get('sobre', 'VendasController@sobre')->name('sobre');
 
+Route::get('pdf', 'VendasController@gerarPDf')->name('pdf');
+
