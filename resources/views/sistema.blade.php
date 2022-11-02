@@ -8,10 +8,21 @@
 
 ************ SISTEMA ************<br>
 
+<a href="{{ route('sistema') }}">Início</a>
 <a href="{{route('deslogar')}}">Deslogar</a><br>
 <a href="{{route('sobre')}}">Sobre o sistema</a><br>
+<a href="{{ route('cadastro_produtos') }}">Cadastro de produtos</a><br>
+<a href="{{ route('cadastro_vendas') }}">Cadastro de vendas</a><br>
+<a href="">Controle de vendas</a><br>
+<a href="">Relatório de produtos</a><br>
+<a href="">Relatório de vendas</a><br>
+
 
 <br><br>
+
+<hr>
+******* APENAS FICTICIO ******** sistema real sendo construido acima
+<hr>
 Cadastro<br>
 <a href="">Cadastro de produtos</a><br>
 tabela<br>
@@ -55,6 +66,32 @@ Relatorio<br>
 <a href="">Relatorio de vendas</a><br><br>
 
 
+<br><br><a href="">Controle de vendas </a> (aqui voce pode editar excluir) <br><br>
+
+
 <br>session logado?
 {{session('logado')}}
+
+<br><br>
+Para cadastrar uma venda, é necessário informar:<br>
+o cliente /// <br>
+os itens da venda. ///<br><br>
+
+forma de pagamento //// <br>
+e a possibilidade de gerar parcelas para a venda. //?/ <br><br>
+
+Listagem de vendas realizadas ////é o relatorio<br>
+e as funções de editar ou excluir uma venda. ////controle de vendas <br><br>
+
+
+Funcionalidade adicionais:<br>
+1-	login no sistema, e vincular o vendedor pelo login/////<br>
+2-	Filtros na listagem de vendas; !!!!!<br>
+3-	Baixar o resumo da venda como PDF. /////<br><br>
+
+
+Requisitos: Laravel, Javascript/Jquery, bootstrap e banco de dados SQL.
+Tempo limite para o teste: 24 horas
+
+Boa sorte!
 @endsection

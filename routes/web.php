@@ -27,5 +27,13 @@ Route::get('sair', 'VendasController@deslogar')->name('deslogar');
 
 Route::get('sobre', 'VendasController@sobre')->name('sobre');
 
+Route::get('cadastro_produtos', 'VendasController@cadastro_produtos')->name('cadastro_produtos');
+
+Route::get('cadastro_produtos_submit', 'VendasController@cadastro_produtos_submit')->name('cadastro_produtos_submit');
+
+Route::get('cadastro_vendas', 'VendasController@cadastro_vendas')->name('cadastro_vendas');
+
+Route::get('cadastro_vendas_submit', 'VendasController@cadastro_vendas_submit')->name('cadastro_vendas_submit');
+
 Route::get('pdf', 'VendasController@gerarPDf')->name('pdf');
 
