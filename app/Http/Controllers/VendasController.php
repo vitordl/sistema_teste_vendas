@@ -143,54 +143,19 @@ class VendasController extends Controller
         $total = $valor * $quantidade;
         $pagamento = $request->input('pagamento');
 
-        echo 'CLIENTE: '.$cliente.'<br>'; 
-        echo 'PRODUTO: '.$produto.'<br>';
-        echo 'VALOR: '.$valor.'<br>';
-        echo 'QTD: '.$quantidade.'<br>';
-        echo 'TOTAL: R$ '.$total.'<br>';
-        echo 'TIPO DE PAGAMENTO: '.$pagamento.'<br>';
+        return view('cadastro_vendas_submit',
+            [
+                'cliente' => $cliente, 'produto' => $produto,
+                'valor' => $valor, 'quantidade' => $quantidade,
+                'pagamento' => $pagamento, 'total' => $total,
+            ]
+        );
+    }
 
-
-        if($pagamento == 'a prazo'){
-        echo "QTD PARCELAS:";
-
-        ?>
-            <select name="qtdparcelas" id="qtdparcelas" required onclick="valorParcela()">
-                <option selected value="">Selecione</option>
-                <option value="2">2x sem juros</option>
-                <option value="3">3x sem juros</option>
-                <option value="5">5x sem juros</option>
-                <option value="7">7x sem juros</option>
-                <option value="10">10x sem juros</option>
-
-            
-            </select>
-
-            VALOR PARCELA: <input type="text" name="valorparcela" readonly id="valorparcela">
-
-            <script>
-                function valorParcela(){
-        
-                    var qtdparcelas = document.getElementById('qtdparcelas').value;
-
-                    var valor_por_qtd_parcela = 3500/qtdparcelas;
-
-              
-                    document.getElementById('valorparcela').value = 'R$'+valor_por_qtd_parcela;
-
-                    
-                }
-                
-            </script>
-        <?php
-        }
-  
-
+    public function cadastro_vendas_submit2(Request $request){
+        return view('cadastro_vendas_submit2');
     }
     
-    
-
-
     public function deslogar(){
         if(session()->has('logado')){
             session()->forget('logado');
@@ -198,9 +163,6 @@ class VendasController extends Controller
         }
         return redirect()->route('login');
     }
-
-    
-
    
     public function gerarPDf()
     {

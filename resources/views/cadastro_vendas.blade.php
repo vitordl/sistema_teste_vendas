@@ -31,7 +31,6 @@
     Total:<input type="text" name="total" id="total" readonly required ><br><br>
     
 
-
     Forma de pagamento:
     <select name="pagamento"  required>
         <option selected value="">Selecione</option>
@@ -54,15 +53,7 @@
         document.getElementById('total').value = valor_total;
     }
 
-    // function apresenta_parcelas(){
-    //     //id="pagamento" onblur="apresenta_parcelas()"
-    //     var pagamento = document.getElementById('pagamento').value;
-    //     if(pagamento == 'a prazo'){
-    //         alert(pagamento);
-    //     }
-    // }
-    
-
+ 
 </script>
 
 @endsection
