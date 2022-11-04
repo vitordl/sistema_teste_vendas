@@ -8,16 +8,30 @@ CADASTRO VENDAS SUBMIT
 
 <a href="{{route('sistema')}}">Início</a>
 
-<p>CLIENTE:{{$cliente}} </p>
-<p>PRODUTO:{{$produto}} </p>
-<p>VALOR:{{$valor}}</p>
-<p>QUANTIDADE: {{$quantidade}}</p>
-<p>TOTAL: {{$total}}</p>
-<p>PAGAMENTO: {{$pagamento}}</p>
 
+@if($pagamento == 'a vista') 
+<form action="{{ route('vendas_salvar') }}" method="get">
+@else
+<form action="{{ route('cadastro_vendas_submit2') }}" method="get">
+@endif
+
+    <br>
+    Cliente:<input type="text" name="cliente" value="{{$cliente}}" readonly required><br><br>
+
+    Produto:<input type="text" name="produtos" value="{{$produto}}" readonly required><br><br>
+
+    Valor:<input type="text" name="valor" value="{{$valor}}" readonly required><br><br>
+
+    Quantidade<input type="text" name="quantidade" value="{{$quantidade}}" readonly required><br><br>
+
+    Total<input type="text" id="total" name="total" value="{{$total}}" readonly required><br><br>
+
+    Forma de pagamento: <input type="text" name="pagamento" value="{{$pagamento}}" readonly required><br>
+
+<br><br>
+    
 
 @if ($pagamento == 'a prazo')
-    <form action="{{route('cadastro_vendas_submit2')}}" method="get">
         QTD PARCELAS:
         <select name="qtdparcelas" id="qtdparcelas" required onclick="valorParcela()">
             <option selected value="">Selecione</option>
@@ -28,23 +42,30 @@ CADASTRO VENDAS SUBMIT
             <option value="10">10x sem juros</option>
         </select>
 
-        VALOR PARCELA: <input type="text" name="valorparcela" required readonly id="valorparcela">
+        VALOR PARCELA: <input type="text" name="valorparcela" required readonly id="valorparcela"><br><br>
 
-        <input type="submit" value="Confirmar">
-    </form>
-    
+        <input type="submit" value="Continuar"><br><br>
+        
+        <a href="{{ route('sistema') }}">Cancelar</a>
+
 @else
-
-    <a href="{{route('sistema')}}">Confirmar</a><br>
+    
+    <input type="submit" value="Finalizar pedido"><br><br>
+    {{-- <a href="{{route('sistema')}}">Confirmar</a><br> --}}
     <a href="#">Cancelar</a>
     <br>
+
+</form> 
 @endif
 
 <script>
     function valorParcela(){
+        var total = document.getElementById('total').value;
         var qtdparcelas = document.getElementById('qtdparcelas').value;
-        var valor_por_qtd_parcela = 3500/qtdparcelas;
-        document.getElementById('valorparcela').value = 'R$'+valor_por_qtd_parcela;
+        var valor_por_qtd_parcela = total/qtdparcelas;
+        valor_por_qtd_parcela = Math.floor(valor_por_qtd_parcela * 100) / 100
+        document.getElementById('valorparcela').value = valor_por_qtd_parcela;
+        
     }   
 </script>
 

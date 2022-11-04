@@ -13,7 +13,7 @@
 <a href="{{route('sobre')}}">Sobre o sistema</a><br>
 <a href="{{ route('cadastro_produtos') }}">Cadastro de produtos</a><br>
 <a href="{{ route('cadastro_vendas') }}">Cadastro de vendas</a><br>
-<a href="">Controle de vendas</a><br>
+<a href="{{route('vendas_controle')}}">Controle de vendas</a><br>
 <a href="">Relatório de produtos</a><br>
 <a href="">Relatório de vendas</a><br>
 

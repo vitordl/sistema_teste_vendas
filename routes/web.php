@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\VendasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,12 @@ Route::get('cadastro_vendas', 'VendasController@cadastro_vendas')->name('cadastr
 Route::get('cadastro_vendas_submit', 'VendasController@cadastro_vendas_submit')->name('cadastro_vendas_submit');
 
 Route::get('cadastro_vendas_submit2', 'VendasController@cadastro_vendas_submit2')->name('cadastro_vendas_submit2');
+
+Route::get('vendas_salvar', 'VendasController@vendas_salvar')->name('vendas_salvar');
+
+Route::get('vendas_controle', 'VendasController@vendas_controle')->name('vendas_controle');
+
+Route::get('vendas_remover/{id?}', 'VendasController@vendas_remover')->name('vendas_remover');
 
 Route::get('pdf', 'VendasController@gerarPDf')->name('pdf');
 

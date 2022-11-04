@@ -13,9 +13,9 @@
 
 <form action="{{ route('cadastro_produtos_submit') }}" method="get">
     <br>
-    Produto: <input type="text" name="produto" required><br><br>
+    Produto: <input type="text" name="produtos" required><br><br>
     
-    Valor: <input type="text" name="valor" required> (botar mask de valor)
+    Valor: <input type="number" step="0.01" min=0 name="valor" required> (botar mask de valor)
 
     <br><br>
     <input type="submit" value="Salvar"><br>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produtos;
 use App\Models\Usuarios;
+use App\Models\Vendas;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -56,6 +57,7 @@ class VendasController extends Controller
                 $prodb = new Produtos();
                 $prodb->produto = $p['produto'];
                 $prodb->valor = $p['valor'];
+                $prodb->vendedor = 'usuario_admin';
                 $prodb->save();
             }     
         }
@@ -87,6 +89,7 @@ class VendasController extends Controller
         }
 
         session()->put('logado', 'sim');
+        session()->put('usuario', $usuario_campo);
         return redirect()->route('sistema');
 
     
@@ -121,8 +124,16 @@ class VendasController extends Controller
 
     public function cadastro_produtos_submit(Request $request){
        
-        $produto = $request->input('produto');
+        $produto = $request->input('produtos');
         $valor = $request->input('valor');
+
+        $produtos = new Produtos();
+
+        $produtos->produto = "[{$produto}]";
+        $produtos->valor = $valor;
+        $produtos->vendedor = session('usuario');
+
+        $produtos->save();
     
         echo $produto.'<br>';
         echo $valor;
@@ -131,10 +142,17 @@ class VendasController extends Controller
 
 
     public function cadastro_vendas(){
-        return view('cadastro_vendas');
+        $produtos = Produtos::orderBy('produto')->get();
+
+        // foreach($produtos as $prod){
+        //     echo "{$prod->produto} <br> {$prod->valor} <br> {$prod->vendedor} <br>";
+            
+        // }
+        return view('cadastro_vendas', ['produtos' => $produtos]);
     }
 
     public function cadastro_vendas_submit(Request $request){
+
         $cliente = $request->input('cliente');
         $produto = $request->input('produtos');
         $valor = $request->input('valor');
@@ -142,6 +160,7 @@ class VendasController extends Controller
 
         $total = $valor * $quantidade;
         $pagamento = $request->input('pagamento');
+
 
         return view('cadastro_vendas_submit',
             [
@@ -153,8 +172,66 @@ class VendasController extends Controller
     }
 
     public function cadastro_vendas_submit2(Request $request){
-        return view('cadastro_vendas_submit2');
+        $cliente = $request->input('cliente');
+        $produto = $request->input('produtos');
+        $valor = $request->input('valor');
+        $quantidade = $request->input('quantidade');
+        $total = $request->input('total');
+        $pagamento = $request->input('pagamento');
+        $qtdparcelas = $request->input('qtdparcelas');
+        $valorparcela = $request->input('valorparcela');
+        
+        return view('cadastro_vendas_submit2',
+        [
+            'cliente' => $cliente, 'produto' => $produto,
+            'valor' => $valor, 'quantidade' => $quantidade,
+            'pagamento' => $pagamento, 'total' => $total,
+            'qtdparcelas' => $qtdparcelas, 'valorparcela' => $valorparcela
+        ]
+    );
     }
+
+
+    public function vendas_salvar(Request $request){
+        $cliente = $request->input('cliente');
+        $produto = $request->input('produtos');
+        $valor = $request->input('valor');
+        $quantidade = $request->input('quantidade');
+        $total = $request->input('total');
+        $pagamento = $request->input('pagamento');
+        $qtdparcelas = $request->input('qtdparcelas');
+        $valorparcela = $request->input('valorparcela');
+
+        $vendas = new Vendas();
+        
+        $vendas->vendedor = session('usuario');
+        $vendas->cliente = $cliente;
+        $vendas->produto = $produto;
+        $vendas->valor = $valor;
+        $vendas->quantidade = $quantidade;
+        $vendas->valor_total = $total;
+        $vendas->tipo_pgto = $pagamento;
+        $vendas->parcelas = $qtdparcelas;
+        $vendas->valor_parcela = $valorparcela;
+        $vendas->save();
+
+
+    }
+
+
+    public function vendas_controle(){
+
+        $vendas = Vendas::get();
+        return view('vendas_controle', ['vendas' => $vendas]);
+    }
+
+
+    public function vendas_remover($id){
+        $vendas = Vendas::find($id);
+        $vendas->delete();
+        return redirect()->route('vendas_controle');
+    }
+
     
     public function deslogar(){
         if(session()->has('logado')){
