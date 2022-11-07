@@ -144,10 +144,6 @@ class VendasController extends Controller
     public function cadastro_vendas(){
         $produtos = Produtos::orderBy('produto')->get();
 
-        // foreach($produtos as $prod){
-        //     echo "{$prod->produto} <br> {$prod->valor} <br> {$prod->vendedor} <br>";
-            
-        // }
         return view('cadastro_vendas', ['produtos' => $produtos]);
     }
 
@@ -216,6 +212,8 @@ class VendasController extends Controller
         $vendas->save();
 
 
+        return redirect()->route('vendas_controle');
+
     }
 
 
@@ -232,6 +230,22 @@ class VendasController extends Controller
         return redirect()->route('vendas_controle');
     }
 
+
+    public function relatorio_vendas(){
+        $vendas = Vendas::get();
+        $total_valor = Vendas::sum('valor_total');
+        return view('relatorio_vendas', ['vendas' => $vendas, 
+        'total_valor' => $total_valor]);
+    }
+
+    public function relatorio_produtos(){
+        $produtos = Produtos::get();
+
+       
+
+        return view('relatorio_produtos', ['produtos' => $produtos]);
+    }
+
     
     public function deslogar(){
         if(session()->has('logado')){
@@ -243,7 +257,14 @@ class VendasController extends Controller
    
     public function gerarPDf()
     {
-        $data = ['teste' => 'oi tudo bom'];
+        //$data = ['teste' => 'oi tudo bom'];
+        $vendas = Vendas::get();
+        $total_valor = Vendas::sum('valor_total');
+        // return view('relatorio_vendas', ['vendas' => $vendas, 
+        // 'total_valor' => $total_valor]);
+
+        $data = ['vendas' => $vendas, 'total_valor' => $total_valor];
+
         $pdf = Pdf::loadView('pdfteste', $data);
         return $pdf->download('pdfteste.pdf');
     

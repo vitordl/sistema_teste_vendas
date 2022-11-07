@@ -6,7 +6,7 @@
 
 
 
-VENDAS CONTROLE
+RELATORIO DE VENDAS!
 
 <a href="{{route('sistema')}}">Inicio</a>
 
@@ -16,14 +16,12 @@ VENDAS CONTROLE
         <th>Produto</th>
         <th>Valor</th>
         <th>Quantidade</th>
-        <th>Valor Total</th>
+        <th style="color:red">Valor Total</th>
         <th>Tipo Pagamento</th>
         <th>Parcelas</th>
         <th>Valor Parcela</th>
         <th>Cliente</th>
         <th>Vendedor</th>
-        <th>Data/Hora do pedido</th>
-        <th>Opções</th>
     </thead>
 
     <tbody>
@@ -38,27 +36,20 @@ VENDAS CONTROLE
             <td>{{$venda->valor_parcela}}</td>
             <td>{{$venda->cliente}}</td>
             <td>{{$venda->vendedor}}</td>
-            <td>{{$venda->created_at}}</td>
-            @if ($venda->vendedor == session('usuario'))
-                <td><a href="{{route('vendas_remover', $venda->id)}}" >Remover</a></td>
-            @endif
-            
+                 
         </tr>
         @endforeach
     </tbody>
+    
 </table>
 
+<p id="total_tabela" style="color:brown">TOTAL DE VENDAS = {{$total_valor}} </p>
+
+<hr>
+
+<a href="{{route('pdf')}}">Gerar PDF</a>
 
 
-<script>
-    //onclick="deletar_venda()"
-    // function deletar_venda(){
-    //     if (confirm('Tem certeza que quer remover esse item?')) {
 
-    //     }else{
-
-    //     }
-    // }
-</script>
 
 @endsection

@@ -70,20 +70,4 @@ CADASTRO VENDAS SUBMIT
 </script>
 
 
-
-<br>session logado?
-{{session('logado')}}
-
-<p>daqui em diante:<br>
-    após clicar em confirmar ele vai levar para uma página estática com todos
-    os dados referentes a essa página e apenas com 2 botões, finalizar pedido e cancelar (tem certeza?)
-</p>
-
-<p>perái ja preciso salvar aqui mesmo no banco de dados quando clicar em confirmar.. eu acho</p>
-
-<p>no finalizar pedido ele vai finalmente salvar no banco de dados</p>
-
-<p>e essas informacoes vão para a tabela de relatório de vendas </p>
-
-
 @endsection

@@ -44,6 +44,10 @@ Route::get('vendas_controle', 'VendasController@vendas_controle')->name('vendas_
 
 Route::get('vendas_remover/{id?}', 'VendasController@vendas_remover')->name('vendas_remover');
 
+Route::get('relatorio_vendas', 'VendasController@relatorio_vendas')->name('relatorio_vendas');
+
+Route::get('relatorio_produtos', 'VendasController@relatorio_produtos')->name('relatorio_produtos');
+
 Route::get('pdf', 'VendasController@gerarPDf')->name('pdf');
 
 

@@ -31,27 +31,8 @@ ALGO COMO "RESUMO DA VENDA botar tudo em maiuscula uppercase"
     @endif
     <br>
     <input type="submit" value="Finalizar pedido"><br>
-    <a href="">Cancelar</a>
+    <a href="{{route('sistema')}}">Cancelar</a>
 </form>
 
-
-<hr>
-
-<p>{{$cliente}}</p>
-<p>{{$produto}}</p>
-<p>{{$valor}}</p>
-<p>{{$quantidade}}</p>
-<p>{{$total}}</p>
-<p>{{$pagamento}}</p>
-
-@if($qtdparcelas)
-<p>qtd parcelas::::{{$qtdparcelas}}</p>
-@endif
-
-<p>uma visualização maneira com finalizar pedido e cancelar</p>
-<p>entao aqui um botao finalizar pedido que vai salvar no banco de dados</p>
-
-<br>session logado?
-{{session('logado')}}
 
 @endsection

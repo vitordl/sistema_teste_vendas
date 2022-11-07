@@ -6,7 +6,7 @@
 
 
 
-**** CADASTRO VENDAS *****    --session logado?{{session('logado')}}
+**** CADASTRO VENDAS ****
 <br>
 <a href="{{ route('sistema') }}">Início</a>
 <br>
@@ -24,14 +24,14 @@
 
         @endforeach
  
-    </select> (vai puxar do bd os produtos)
+    </select> 
     <br><br>
 
     <input type="text" placeholder="" id="valorhidden" hidden>
     <input type="text" placeholder="" id="produtos" name="produtos" readonly>
     
     Valor: <input type="text" name="valor" id="valor" readonly required>
-(vai puxar automaticamente com php ou js?)
+
     <br><br>
 
     Quantidade:<input type="number" min="1" name="quantidade" id="quantidade" required onblur="apresenta_total()"><br><br>
