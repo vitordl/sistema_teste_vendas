@@ -118,11 +118,21 @@ class VendasController extends Controller
 
 
     public function cadastro_produtos(){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         return view('cadastro_produtos');
     }
 
 
     public function cadastro_produtos_submit(Request $request){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
        
         $produto = $request->input('produtos');
         $valor = $request->input('valor');
@@ -142,12 +152,22 @@ class VendasController extends Controller
 
 
     public function cadastro_vendas(){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $produtos = Produtos::orderBy('produto')->get();
 
         return view('cadastro_vendas', ['produtos' => $produtos]);
     }
 
     public function cadastro_vendas_submit(Request $request){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
 
         $cliente = $request->input('cliente');
         $produto = $request->input('produtos');
@@ -168,6 +188,12 @@ class VendasController extends Controller
     }
 
     public function cadastro_vendas_submit2(Request $request){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $cliente = $request->input('cliente');
         $produto = $request->input('produtos');
         $valor = $request->input('valor');
@@ -189,6 +215,12 @@ class VendasController extends Controller
 
 
     public function vendas_salvar(Request $request){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $cliente = $request->input('cliente');
         $produto = $request->input('produtos');
         $valor = $request->input('valor');
@@ -219,12 +251,23 @@ class VendasController extends Controller
 
     public function vendas_controle(){
 
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $vendas = Vendas::get();
         return view('vendas_controle', ['vendas' => $vendas]);
     }
 
 
     public function vendas_remover($id){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $vendas = Vendas::find($id);
         $vendas->delete();
         return redirect()->route('vendas_controle');
@@ -232,6 +275,12 @@ class VendasController extends Controller
 
 
     public function relatorio_vendas(){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
         $vendas = Vendas::get();
         $total_valor = Vendas::sum('valor_total');
         return view('relatorio_vendas', ['vendas' => $vendas, 
@@ -239,9 +288,13 @@ class VendasController extends Controller
     }
 
     public function relatorio_produtos(){
-        $produtos = Produtos::get();
 
-       
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+
+        $produtos = Produtos::orderBy('produto')->get();
 
         return view('relatorio_produtos', ['produtos' => $produtos]);
     }
@@ -255,20 +308,40 @@ class VendasController extends Controller
         return redirect()->route('login');
     }
    
-    public function gerarPDf()
+    public function gerar_pdf_vendas()
     {
-        //$data = ['teste' => 'oi tudo bom'];
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+       
         $vendas = Vendas::get();
         $total_valor = Vendas::sum('valor_total');
-        // return view('relatorio_vendas', ['vendas' => $vendas, 
-        // 'total_valor' => $total_valor]);
-
+    
         $data = ['vendas' => $vendas, 'total_valor' => $total_valor];
 
-        $pdf = Pdf::loadView('pdfteste', $data);
-        return $pdf->download('pdfteste.pdf');
+        $pdf = Pdf::loadView('pdf_vendas', $data);
+        return $pdf->download('pdf_vendas.pdf');
     
     }
+
+    public function gerar_pdf_produtos(){
+
+        if(!session()->has('logado')){
+            return redirect()->route('login');
+        }
+
+        
+        $produtos = Produtos::orderBy('produto')->get();
+
+        $data = ['produtos' => $produtos];
+
+        $pdf = Pdf::loadView('pdf_produtos', $data);
+        return $pdf->download('pdf_produtos.pdf');
+
+    }
+
+
 
 
 }

@@ -48,7 +48,8 @@ Route::get('relatorio_vendas', 'VendasController@relatorio_vendas')->name('relat
 
 Route::get('relatorio_produtos', 'VendasController@relatorio_produtos')->name('relatorio_produtos');
 
-Route::get('pdf', 'VendasController@gerarPDf')->name('pdf');
+Route::get('pdf_vendas', 'VendasController@gerar_pdf_vendas')->name('pdf_vendas');
 
+Route::get('pdf_produtos', 'VendasController@gerar_pdf_produtos')->name('pdf_produtos');
 
 

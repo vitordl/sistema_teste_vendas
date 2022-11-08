@@ -1,8 +1,8 @@
 @extends('layout.layout')
 
-@section('conteudo') 
+@section('conteudo')
 
-{{-- <style>
+<style>
     table {
         border-collapse: collapse;
     }
@@ -16,11 +16,10 @@
     th{
         background: rgb(201, 248, 180)
     }
-</style> --}}
+  
+</style>
 
 RELATORIO DE PRODUTOS!
-
-<a href="{{route('sistema')}}">Inicio</a>
 
 
 <table>
@@ -42,8 +41,6 @@ RELATORIO DE PRODUTOS!
     </tbody>
     
 </table>
-
-<a href="{{route('pdf_produtos')}}">Gerar PDF produtos</a>
 
 
 @endsection

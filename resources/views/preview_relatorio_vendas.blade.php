@@ -2,28 +2,38 @@
 
 @section('conteudo')
 
-{{-- página de login --}}
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    td, th {
+        border: 1px solid #999;
+        padding: 0.5rem;
+        text-align: left;
+    }
+
+    th{
+        background: rgb(201, 248, 180)
+    }
+  
+</style>
 
 
-
-VENDAS CONTROLE
-
-<a href="{{route('sistema')}}">Inicio</a>
-
+RELATORIO DE VENDAS!
 
 <table>
     <thead>
         <th>Produto</th>
         <th>Valor</th>
         <th>Quantidade</th>
-        <th>Valor Total</th>
+        <th style="color:red">Valor Total</th>
         <th>Tipo Pagamento</th>
         <th>Parcelas</th>
         <th>Valor Parcela</th>
         <th>Cliente</th>
         <th>Vendedor</th>
-        <th>Data pedido</th>
-        <th>Opções</th>
     </thead>
 
     <tbody>
@@ -38,27 +48,16 @@ VENDAS CONTROLE
             <td>{{$venda->valor_parcela}}</td>
             <td>{{$venda->cliente}}</td>
             <td>{{$venda->vendedor}}</td>
-            <td>{{$venda->created_at->format('d M Y')}}</td>
-            @if ($venda->vendedor == session('usuario'))
-                <td><a href="{{route('vendas_remover', $venda->id)}}" >Remover</a></td>
-            @endif
-            
+                 
         </tr>
         @endforeach
     </tbody>
+    
 </table>
 
+<p id="total_tabela" style="color:brown">TOTAL DE VENDAS = {{$total_valor}} </p>
 
 
-<script>
-    //onclick="deletar_venda()"
-    // function deletar_venda(){
-    //     if (confirm('Tem certeza que quer remover esse item?')) {
 
-    //     }else{
-
-    //     }
-    // }
-</script>
 
 @endsection

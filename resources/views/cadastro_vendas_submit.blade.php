@@ -52,7 +52,7 @@ CADASTRO VENDAS SUBMIT
     
     <input type="submit" value="Finalizar pedido"><br><br>
     {{-- <a href="{{route('sistema')}}">Confirmar</a><br> --}}
-    <a href="#">Cancelar</a>
+    <a href="{{route('sistema')}}">Cancelar</a>
     <br>
 
 </form> 

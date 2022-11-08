@@ -47,9 +47,8 @@ RELATORIO DE VENDAS!
 
 <hr>
 
-<a href="{{route('pdf')}}">Gerar PDF</a>
 
-
+<a href="{{route('pdf_vendas')}}">Gerar PDF</a>
 
 
 @endsection

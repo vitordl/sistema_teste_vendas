@@ -3,7 +3,7 @@
 
 @section('conteudo')
 
-@include('relatorio_vendas')
+@include('preview_relatorio_produtos')
 
 
 @endsection
